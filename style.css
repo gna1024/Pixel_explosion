@@ -16,3 +16,18 @@ img {
     width: 50%;
     display: none;
 }
+
+button {
+    padding: 20 px;
+    font-size: 30 px;
+    margin: 10 px;
+    font-size: 100px;
+    background: black;
+    color: white;
+    transition: 0.2s;
+}
+
+button:hover {
+    background: white;
+    color: black;
+}

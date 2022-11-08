@@ -26,6 +26,11 @@ window.addEventListener('load', function(){
             console.log(this.x)
             this.y += (this.originY - this.y) * this.ease;
         }
+        warp(){
+            this.x = Math.random() * this.effect.width;
+            this.y = Math.random() * this.effect.height;
+            this.ease = 0.05;
+        }
     }
 
     class Effect {
@@ -38,7 +43,7 @@ window.addEventListener('load', function(){
             this.CenterY = this.height * 0.5;
             this.x = this.CenterX - this.image.width * 0.5;
             this.y = this.CenterY - this.image.height * 0.5;
-            this.gap = 7;
+            this.gap = 4;
         }
         init(context){
             context.drawImage(this.image, this.x, this.y);
@@ -63,6 +68,9 @@ window.addEventListener('load', function(){
         update(){
             this.particlesArray.forEach(particle => particle.update())
         }
+        warp(){
+            this.particlesArray.forEach(particle => particle.warp())
+        }
     }
 
     const effect = new Effect(canvas.width, canvas.height);
@@ -77,4 +85,9 @@ window.addEventListener('load', function(){
     }
 
     animate()
+
+    const warpButton = document.getElementById('warpButton');
+    warpButton.addEventListener('click', function(){
+        effect.warp();
+    })
 });
