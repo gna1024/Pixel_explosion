@@ -16,15 +16,31 @@ window.addEventListener('load', function(){
             this.vx = 0;
             this.vy = 0;
             this.ease = 0.05;
+            this.friction = 0.95
+            this.dx = 0;
+            this.dy = 0;
+            this.distance = 0;
+            this.force = 0;
+            this.angle = 0;
         }
         draw(context){
             context.fillStyle = this.color;
             context.fillRect(this.x, this.y, this.size, this.size);
         }  
         update(){
-            this.x += (this.originX - this.x) * this.ease;
-            console.log(this.x)
-            this.y += (this.originY - this.y) * this.ease;
+            this.dx = (this.effect.mouse.x - this.x);
+            this.dy = (this.effect.mouse.y - this.y);
+            this.distance = (this.dx * this.dx + this.dy * this.dy);
+            this.force = -this.effect.mouse.radius / this.distance;
+
+            if(this.distance < this.effect.mouse.radius) {
+                this.angle = Math.atan2(thise.dy, this.dx); 
+                this.vx += this.force * Math.cos(this.angle);
+                this.vy += this.force * Math.sin(this.angle)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    
+            }
+
+            this.x += this.vx * this.friction + (this.originX - this.x) * this.ease;
+            this.y += this.vy * this.friction + (this.originY - this.y) * this.ease;
         }
         warp(){
             this.x = Math.random() * this.effect.width;
@@ -44,6 +60,15 @@ window.addEventListener('load', function(){
             this.x = this.CenterX - this.image.width * 0.5;
             this.y = this.CenterY - this.image.height * 0.5;
             this.gap = 4;
+            this.mouse = {
+                radius: 3000,
+                x: undefined,
+                y: undefined,
+            }
+            window.addEventListener('mousemove', event => {
+                this.mouse.x = event.x;
+                this.mouse.y = event.y;
+            })
         }
         init(context){
             context.drawImage(this.image, this.x, this.y);
@@ -81,7 +106,7 @@ window.addEventListener('load', function(){
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         effect.draw(ctx);
         effect.update();
-        requestAnimationFrame(animate);
+        requestAnimationFrame(animate); 
     }
 
     animate()
