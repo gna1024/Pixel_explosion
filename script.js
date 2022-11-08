@@ -15,8 +15,8 @@ window.addEventListener('load', function(){
             this.size = this.effect.gap;
             this.vx = 0;
             this.vy = 0;
-            this.ease = 0.05;
-            this.friction = 0.95;
+            this.ease = 0.2;
+            this.friction = 0.75;
             this.dx = 0;
             this.dy = 0;
             this.distance = 0;
@@ -46,7 +46,7 @@ window.addEventListener('load', function(){
         warp(){
             this.x = Math.random() * this.effect.width;
             this.y = Math.random() * this.effect.height;
-            this.ease = 0.05;
+            this.ease = 0.2;
         }
     }
 
@@ -62,7 +62,7 @@ window.addEventListener('load', function(){
             this.y = this.CenterY - this.image.height * 0.5;
             this.gap = 4;
             this.mouse = {
-                radius: 300,
+                radius: 5000,
                 x: undefined,
                 y: undefined,
             }
