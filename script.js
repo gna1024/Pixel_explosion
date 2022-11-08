@@ -9,10 +9,16 @@ window.addEventListener('load', function(){
             this.effect = effect;
             this.x = Math.random() * this.effect.width;
             this.y = Math.random() * this.effect.height;
-            this.size = 100;
+            this.size = 5;
+            this.vx = Math.random() - 0.5;
+            this.vy = Math.random() - 0.5;
         }
         draw(context){
             context.fillRect(this.x, this.y, this.size, this.size);
+        }
+        update(){
+            this.x += this.vx;
+            this.y += this.vy;
         }
     }
 
@@ -28,7 +34,7 @@ window.addEventListener('load', function(){
             this.y = this.CenterY - this.image.height * 0.5;
         }
         init(){
-            for(let i = 0; i < 10; i++) {
+            for(let i = 0; i < 1000; i++) {
                 this.particlesArray.push(new Particle(this));
             }
         }
@@ -36,12 +42,20 @@ window.addEventListener('load', function(){
             this.particlesArray.forEach(particle => particle.draw(context));
             context.drawImage(this.image, this.x, this.y)
         }
+        update(){
+            this.particlesArray.forEach(particle => particle.update())
+        }
     }
 
     const effect = new Effect(canvas.width, canvas.height);
     effect.init();
-    effect.draw(ctx);
-    function animate(){
 
+    function animate(){
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        effect.draw(ctx);
+        effect.update();
+        requestAnimationFrame(animate);
     }
+
+    animate()
 });
