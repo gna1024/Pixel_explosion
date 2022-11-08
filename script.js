@@ -7,22 +7,24 @@ window.addEventListener('load', function(){
     class Particle {
         constructor(effect, x, y, color){
             this.effect = effect;
-            this.x = x;
-            this.y = y;
+            this.x = Math.random() * this.effect.width;
+            this.y = 0;
             this.originX = Math.floor(x);
             this.originY = Math.floor(y);
             this.color = color;
             this.size = this.effect.gap;
             this.vx = 0;
             this.vy = 0;
+            this.ease = 0.05;
         }
         draw(context){
             context.fillStyle = this.color;
             context.fillRect(this.x, this.y, this.size, this.size);
-        }
+        }  
         update(){
-            this.x += this.vx;
-            this.y += this.vy;
+            this.x += (this.originX - this.x) * this.ease;
+            console.log(this.x)
+            this.y += (this.originY - this.y) * this.ease;
         }
     }
 
@@ -36,7 +38,7 @@ window.addEventListener('load', function(){
             this.CenterY = this.height * 0.5;
             this.x = this.CenterX - this.image.width * 0.5;
             this.y = this.CenterY - this.image.height * 0.5;
-            this.gap = 1;
+            this.gap = 7;
         }
         init(context){
             context.drawImage(this.image, this.x, this.y);
@@ -65,7 +67,7 @@ window.addEventListener('load', function(){
 
     const effect = new Effect(canvas.width, canvas.height);
     effect.init(ctx);
-    
+    console.log(effect.particlesArray); 
 
     function animate(){
         ctx.clearRect(0, 0, canvas.width, canvas.height);
