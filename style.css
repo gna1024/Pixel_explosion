@@ -12,3 +12,8 @@
     position: absolute;
     z-index: 100;
 }
+
+img {
+    width: 50%;
+    display: none;
+}
